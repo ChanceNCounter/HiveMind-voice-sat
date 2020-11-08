@@ -53,6 +53,11 @@ def find_input_device(device_name):
     LOG.info('Searching for input device: {}'.format(device_name))
     LOG.debug('Devices: ')
     pa = pyaudio.PyAudio()
+    # TODO remove this weird kludge
+    sleep(3)
+    del pa
+    pa = pyaudio.PyAudio()
+    # end weird kludge
     pattern = re.compile(device_name)
     for device_index in range(pa.get_device_count()):
         dev = pa.get_device_info_by_index(device_index)
